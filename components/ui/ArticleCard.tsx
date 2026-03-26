@@ -8,6 +8,8 @@ const categoryColors: Record<Article['category'], string> = {
   STEM: 'text-blue-400 border-blue-400',
   News: 'text-red-400 border-red-400',
   Opinion: 'text-gray-400 border-gray-400',
+  Sports: 'text-red-400 border-red-400',
+  "A&E": 'text-gray-400 border-gray-400',
 }
 
 interface ArticleCardProps {
@@ -58,9 +60,6 @@ export default function ArticleCard({ article, large = false, index = 0 }: Artic
             <h3 className={`font-serif font-bold text-cream group-hover:text-gold transition-colors duration-300 leading-snug mb-2 ${large ? 'text-2xl' : 'text-lg'}`}>
               {article.title}
             </h3>
-            <p className="text-muted text-sm leading-relaxed mb-4 line-clamp-2">
-              {article.dek}
-            </p>
             <div className="flex items-center justify-between text-xs text-muted/70 font-mono">
               <span>{article.date}</span>
               <span className="text-gold/60 group-hover:text-gold group-hover:translate-x-0.5 transition-all">

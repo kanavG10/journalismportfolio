@@ -77,16 +77,12 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           {article.title}
         </h1>
 
-        {/* Dek */}
-        <p className="text-muted text-lg leading-relaxed mb-6">{article.dek}</p>
-
         {/* Byline */}
         <div className="flex items-center gap-4 text-sm text-muted/70 font-mono border-b border-slate/30 pb-6 mb-8">
           <span>By <span className="text-cream">Kanav Gupta</span></span>
           <span className="text-gold/30">·</span>
           <span>{article.date}</span>
           <span className="text-gold/30">·</span>
-          <span>{article.readTime}</span>
         </div>
 
         {/* Hero color block */}
@@ -97,59 +93,22 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
         {/* Content blocks */}
         <div className="article-body">
-          {article.content.map((block, i) => {
-            if (block.type === 'paragraph') {
-              return (
-                <p
-                  key={i}
-                  className={`text-cream/90 leading-[1.85] text-lg mb-6 ${i === 0 ? 'drop-cap' : ''}`}
-                >
-                  {block.text}
-                </p>
-              )
-            }
-
-            if (block.type === 'pullquote') {
-              return (
-                <motion.blockquote
-                  key={i}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  className="my-10 px-8 border-l-4 border-gold"
-                >
-                  <p className="font-serif italic text-2xl text-gold leading-relaxed">
-                    &ldquo;{block.text}&rdquo;
-                  </p>
-                </motion.blockquote>
-              )
-            }
-
-            if (block.type === 'subheading') {
-              return (
-                <h2
-                  key={i}
-                  className="font-serif font-bold text-2xl text-cream mt-10 mb-4"
-                >
-                  {block.text}
-                </h2>
-              )
-            }
-
-            if (block.type === 'annotation') {
-              return (
-                <aside
-                  key={i}
-                  className="my-6 p-4 bg-card border border-slate/30 rounded-lg text-sm text-muted font-mono leading-relaxed"
-                >
-                  <span className="text-gold/60 mr-2">→</span>
-                  {block.text}
-                </aside>
-              )
-            }
-
-            return null
-          })}
+          <a
+            href={article.externalUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gold text-navy font-semibold text-sm rounded hover:bg-gold/90 transition-colors tracking-wide"
+          >
+            Read full article
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h5m0 0v5m0-5l-9 9" />
+            </svg>
+          </a>
         </div>
 
         {/* End ornament */}
