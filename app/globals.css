@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Dark mode — warm charcoal + terracotta (RGB channels for Tailwind opacity support) */
+  --navy: 17 17 17;
+  --cream: 237 233 223;
+  --gold: 200 103 58;
+  --slate: 42 39 36;
+  --muted: 143 136 128;
+  --card: 25 23 21;
+  --harker: 184 93 53;
+  --harker-light: 200 103 58;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--navy));
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--slate));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--gold));
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--navy));
+  color: rgb(var(--cream));
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+/* Drop cap */
+.drop-cap::first-letter {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 4.5rem;
+  font-weight: 700;
+  line-height: 0.8;
+  float: left;
+  margin-right: 0.1em;
+  margin-top: 0.05em;
+  color: rgb(var(--gold));
+}
+
+/* Gold ornament divider */
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: rgb(var(--gold));
+  opacity: 0.6;
+}
+.ornament-divider::before,
+.ornament-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgb(var(--gold));
+  opacity: 0.4;
+}
+
+/* Dot grid background */
+@keyframes bgDrift {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-15px, -15px); }
+  100% { transform: translate(0, 0); }
+}
+
+.dot-grid {
+  background-image: radial-gradient(circle, rgb(var(--gold) / 0.15) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: bgDrift 20s ease-in-out infinite;
+}
+
+/* Halftone background for Hero */
+.halftone {
+  background-image: radial-gradient(circle, rgb(var(--gold) / 0.12) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+  animation: bgDrift 25s ease-in-out infinite;
+}
+
+/* Noise grain overlay */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Legacy typewriter cursor (used in Typewriter.tsx) */
+.cursor-blink {
+  display: inline-block;
+  animation: cursorBlink 1.4s step-end infinite;
+}
+.cursor-blink.done {
+  animation: cursorFadeOut 0.4s ease 0.5s forwards;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes cursorFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Google Docs-style cursor */
+.docs-cursor {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  vertical-align: bottom;
+  margin-left: 2px;
+  animation: docsCursorBlink 1.4s step-end infinite;
+}
+
+.docs-cursor-flag {
+  background: rgb(var(--gold));
+  color: rgb(var(--navy));
+  font-size: 0.5rem;
+  font-family: ui-monospace, monospace;
+  font-weight: 700;
+  padding: 1px 5px 1px 4px;
+  border-radius: 3px 3px 3px 0;
+  white-space: nowrap;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.docs-cursor-line {
+  width: 2px;
+  height: 1.2em;
+  background: rgb(var(--gold));
+}
+
+@keyframes docsCursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Selection color */
+::selection {
+  background: rgb(var(--gold) / 0.3);
+  color: rgb(var(--cream));
+}
+
+/* Light mode — white + forest green */
+.light {
+  --navy: 250 250 249;       /* background → near-white */
+  --cream: 13 36 22;         /* text → very dark green */
+  --gold: 45 106 79;         /* accent → forest green */
+  --slate: 184 212 196;      /* borders → light green-gray */
+  --muted: 61 107 81;        /* secondary text → medium green */
+  --card: 240 247 242;       /* card bg → pale green */
+  --harker: 26 92 58;        /* labels → deep forest green */
+  --harker-light: 45 106 79;
+}
+
+.light body {
+  background-color: rgb(250 250 249);
+  color: rgb(13 36 22);
+}
