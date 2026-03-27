@@ -25,7 +25,7 @@ export default function FeaturedWork() {
         </h2>
         <p className="text-muted text-sm mb-10"> I wanted to branch out to start my career on staff, and that meant writing at least one article
           in each section. While I haven't had the opportunity to write a Feature article quite just yet, I was pretty excited by the opportunity
-          to cover my first A&E event! Many more articles (especially STEM) to be published on Aquila very soon...
+          to cover my first A&E event! Just a very small sample size here, check out the rest on Aquila, and more Cycle 7 articles coming through!
           
           
         </p>

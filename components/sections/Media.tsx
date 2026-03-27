@@ -2,25 +2,20 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 import SectionWrapper from '../ui/SectionWrapper'
 
 const photos = [
-  { id: 1, color: '#1a3a5c', aspect: 'tall', caption: 'Lorem ipsum dolor sit amet' },
-  { id: 2, color: '#2d1a3e', aspect: 'wide', caption: 'Consectetur adipiscing elit' },
-  { id: 3, color: '#1a3020', aspect: 'square', caption: 'Sed do eiusmod tempor' },
-  { id: 4, color: '#3a2010', aspect: 'tall', caption: 'Incididunt ut labore et dolore' },
-  { id: 5, color: '#0d2a3a', aspect: 'wide', caption: 'Magna aliqua ut enim' },
-  { id: 6, color: '#2a1a0d', aspect: 'square', caption: 'Quis nostrud exercitation' },
-  { id: 7, color: '#1a2a1a', aspect: 'tall', caption: 'Ullamco laboris nisi aliquip' },
-  { id: 8, color: '#2a0d1a', aspect: 'wide', caption: 'Duis aute irure dolor' },
-  { id: 9, color: '#0d1a2a', aspect: 'square', caption: 'Excepteur sint occaecat' },
+  { id: 1, src: '/images/photo1.jpg', width: 4928, height: 3264 },
+  { id: 2, src: '/images/photo2.jpg', width: 3264, height: 4928 },
+  { id: 3, src: '/images/photo3.jpg', width: 3264, height: 4928 },
+  { id: 4, src: '/images/photo4.jpg', width: 4928, height: 3264 },
+  { id: 5, src: '/images/photo5.jpg', width: 3264, height: 4928 },
+  { id: 6, src: '/images/photo6.jpg', width: 4928, height: 3264 },
+  { id: 7, src: '/images/photo7.jpg', width: 2864, height: 4369 },
+  { id: 8, src: '/images/photo8.jpg', width: 4928, height: 3264 },
+  { id: 9, src: '/images/photo9.jpg', width: 4928, height: 3264 },
 ]
-
-const aspectClasses: Record<string, string> = {
-  tall: 'h-72',
-  wide: 'h-40',
-  square: 'h-52',
-}
 
 export default function Media() {
   const [lightbox, setLightbox] = useState<typeof photos[0] | null>(null)
@@ -32,11 +27,14 @@ export default function Media() {
           [ MEDIA ]
         </p>
         <h2 className="font-serif text-3xl md:text-4xl text-cream mb-12">
-          Lorem &amp; Ipsum
+          Photos
         </h2>
+        <p className="text-muted text-sm mb-10"> 4 words: Can't. Wait. For. Mirrorless. I'm proud of my progress with my handy DSLR by my side,
+          and can't wait for the next chapter of my photo career!
+        </p>
 
-        {/* Masonry-style columns */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-0">
+        {/* Masonry columns — images keep natural aspect ratio */}
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
           {photos.map((photo, i) => (
             <motion.div
               key={photo.id}
@@ -44,21 +42,23 @@ export default function Media() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.06 }}
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.02 }}
               onClick={() => setLightbox(photo)}
               className="relative mb-4 break-inside-avoid overflow-hidden rounded-lg cursor-pointer group"
             >
-              <div
-                className={`w-full ${aspectClasses[photo.aspect]} rounded-lg`}
-                style={{ backgroundColor: photo.color }}
+              <Image
+                src={photo.src}
+                alt={`Photo ${photo.id}`}
+                width={photo.width}
+                height={photo.height}
+                className="w-full h-auto rounded-lg block"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
-              {/* Caption overlay */}
-              <div className="absolute inset-0 bg-navy/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end rounded-lg">
-                <motion.p
-                  className="text-cream text-sm font-mono px-4 py-3 translate-y-2 group-hover:translate-y-0 transition-transform duration-300"
-                >
-                  {photo.caption}
-                </motion.p>
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-navy/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0zm-6-3v6m-3-3h6" />
+                </svg>
               </div>
             </motion.div>
           ))}
@@ -73,27 +73,33 @@ export default function Media() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setLightbox(null)}
-            className="fixed inset-0 z-50 bg-navy/95 backdrop-blur-sm flex items-center justify-center p-6"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
           >
             <motion.div
-              layoutId={`photo-${lightbox.id}`}
-              initial={{ scale: 0.85, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.85, opacity: 0 }}
-              transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-              className="max-w-2xl w-full"
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+              className="relative max-w-[90vw] max-h-[90vh]"
               onClick={(e) => e.stopPropagation()}
             >
-              <div
-                className="w-full h-80 rounded-lg mb-4"
-                style={{ backgroundColor: lightbox.color }}
+              <Image
+                src={lightbox.src}
+                alt={`Photo ${lightbox.id}`}
+                width={lightbox.width}
+                height={lightbox.height}
+                className="rounded-lg object-contain max-w-[90vw] max-h-[90vh] w-auto h-auto"
+                quality={100}
+                priority
               />
-              <p className="text-cream font-serif text-xl mb-1">{lightbox.caption}</p>
               <button
                 onClick={() => setLightbox(null)}
-                className="mt-4 text-muted text-sm font-mono hover:text-gold transition-colors"
+                className="absolute top-3 right-3 bg-black/60 hover:bg-black/80 text-white rounded-full w-9 h-9 flex items-center justify-center transition-colors"
+                aria-label="Close"
               >
-                ← Close
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </button>
             </motion.div>
           </motion.div>

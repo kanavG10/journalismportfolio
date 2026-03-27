@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description:
     'Kanav Gupta is a high school journalist and Assistant STEM Editor at The Harker Aquila, covering science, education, and society.',
   openGraph: {
-    title: 'Kanav Gupta — Journalism Portfolio',
+    title: '',
     description: 'Kanav Gupta',
     type: 'website',
   },

@@ -103,7 +103,7 @@ export default function About() {
               <p className="relative text-sm text-muted leading-relaxed mb-3">
                 Read my cover letter here:{' '}
                 <a
-                  href="https://harkeraquila.com"
+                  href="https://docs.google.com/document/d/1hYk6wLHc788QQSUNrTuWQyLeZ8plgCc0Qe3U7YYoW0c/edit?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gold hover:text-gold/70 transition-colors inline-flex items-center gap-1"
